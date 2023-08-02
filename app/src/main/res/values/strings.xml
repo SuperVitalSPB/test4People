@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">test4People</string>
+    <string name="title_popular">Популярное</string>
+    <string name="title_favorites">Избранное</string>
+    <string name="title_sort">Сортировка</string>
+</resources>
