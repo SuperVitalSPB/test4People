@@ -1,13 +1,13 @@
-package com.test.people.ui.ui.notifications
+package com.test.people.ui.popular
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class PopularViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is popular Fragment"
     }
     val text: LiveData<String> = _text
 }

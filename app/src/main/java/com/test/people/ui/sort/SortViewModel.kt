@@ -1,13 +1,13 @@
-package com.test.people.ui.ui.dashboard
+package com.test.people.ui.sort
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class SortViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+        value = "This is sort Fragment"
     }
     val text: LiveData<String> = _text
 }
