@@ -8,15 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
 
-    lateinit var retrofit: ApiService
+    val appComponent = DaggerAppComponent.create()
 
     override fun onCreate() {
         super.onCreate()
-        retrofit = Retrofit.Builder()
-            .baseUrl(RetrofitClient.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
+
     }
 
 }
