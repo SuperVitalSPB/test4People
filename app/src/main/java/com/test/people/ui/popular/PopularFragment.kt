@@ -18,8 +18,6 @@ import javax.inject.Inject
 
 class PopularFragment : Fragment() {
 
-    @Inject lateinit var networkUtils: NetworkUtils
-
     private var _binding: FragmentPopularBinding? = null
 
     private val binding
@@ -27,16 +25,13 @@ class PopularFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        // val popularViewModel= ViewModelProvider(this).get(PopularViewModel::class.java)
-
-        activity?.let {
-            (it.application as App).appComponent.injectFragment(this)
-        }
         val popularViewModel: PopularViewModel by viewModels {
-            PopularViewModelFactory(networkUtils)
+            val vm = PopularViewModelFactory()
+            activity?.let {
+                (it.application as App).appComponent.injectPopularViewmodelFactory(vm)
+            }
+            vm
         }
-
-
 
         _binding = FragmentPopularBinding.inflate(inflater, container, false)
         val root: View = binding.root

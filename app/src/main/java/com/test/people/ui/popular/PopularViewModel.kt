@@ -34,7 +34,7 @@ class PopularViewModel(var networkUtils: NetworkUtils) : ViewModel() {
     }
 }
 
-// Override ViewModelProvider.NewInstanceFactory to create the ViewModel (VM).
-class PopularViewModelFactory(val networkUtils: NetworkUtils): ViewModelProvider.NewInstanceFactory() {
+class PopularViewModelFactory(): ViewModelProvider.NewInstanceFactory() {
+    @Inject lateinit var networkUtils: NetworkUtils
     override fun <T : ViewModel> create(modelClass: Class<T>): T = PopularViewModel(networkUtils) as T
 }
