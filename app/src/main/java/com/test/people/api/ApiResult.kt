@@ -1,6 +1,8 @@
 package com.test.people.api
 
-sealed class ApiResult<out T>(
+import com.test.people.model.LatestRate
+
+open class ApiResult<out T>(
     val data: T?,
     val errorMessage: String?
 ) {
@@ -13,4 +15,8 @@ sealed class ApiResult<out T>(
         data = null,
         errorMessage = exception
     )
+
+    companion object {
+        fun startValue() = ApiResult(LatestRate(), null)
+    }
 }

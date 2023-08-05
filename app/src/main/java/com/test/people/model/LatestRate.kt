@@ -1,11 +1,13 @@
 package com.test.people.model
 
+import java.util.Random;
+
 data class LatestRate(
-    val success: Boolean,
-    val timestamp: Int,
-    val base: String,
-    val date: String,
-    val rates: List<Valute>,
+    val success: Boolean? = null,
+    val timestamp: Int? = null,
+    val base: String? = null,
+    val date: String? = null,
+    val rates: List<Valute>? = null,
     ) {
 
     companion object {
@@ -21,7 +23,7 @@ data class LatestRate(
                             !valute.first.equals(latestRateEntity.base)
                         }
                         .map { item ->
-                            this.add(Valute(item.first, item.second, false))
+                            this.add(Valute(item.first, item.second, Random().nextBoolean()))
                         }
                 })
         }

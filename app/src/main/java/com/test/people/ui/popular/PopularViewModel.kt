@@ -11,12 +11,16 @@ import com.test.people.model.ErrorResponse
 import com.test.people.model.LatestRate
 import com.test.people.model.LatestRateEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class PopularViewModel(var interactorEntity: InteractorEntity) : ViewModel() {
+class PopularViewModel(val interactorEntity: InteractorEntity) : ViewModel() {
 
-    var rates = MutableLiveData<ApiResult<LatestRate>>()
+    private val _rates = MutableStateFlow(ApiResult.startValue())
+
+    val rates: StateFlow<ApiResult<LatestRate>> = _rates
 
     init {
         loadListRates()
@@ -24,7 +28,7 @@ class PopularViewModel(var interactorEntity: InteractorEntity) : ViewModel() {
 
     fun loadListRates() {
         viewModelScope.launch(Dispatchers.IO) {
-            rates.postValue(interactorEntity.getLatest())
+            _rates.value = interactorEntity.getLatest()
         }
     }
 }
