@@ -6,6 +6,5 @@ import dagger.Provides
 @Module
 class NetworkModule {
 
-    @Provides
-    fun getNetworkUtils() = NetworkUtils()
+
 }

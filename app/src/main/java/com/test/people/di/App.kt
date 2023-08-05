@@ -1,17 +1,19 @@
 package com.test.people.di
 
 import android.app.Application
-import com.test.people.api.ApiService
-import com.test.people.api.RetrofitClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import android.content.pm.PackageManager
 
+@Suppress("DEPRECATION")
 class App : Application() {
 
-    val appComponent = DaggerAppComponent.create()
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
+        appComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(this))
+            .build()
 
     }
 

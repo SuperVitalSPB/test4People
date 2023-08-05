@@ -5,14 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.test.people.api.ApiResult
+import com.test.people.di.InteractorEntity
 import com.test.people.di.NetworkUtils
 import com.test.people.model.ErrorResponse
 import com.test.people.model.LatestRate
+import com.test.people.model.LatestRateEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class PopularViewModel(var networkUtils: NetworkUtils) : ViewModel() {
+class PopularViewModel(var interactorEntity: InteractorEntity) : ViewModel() {
 
     var rates = MutableLiveData<ApiResult<LatestRate>>()
 
@@ -22,19 +24,7 @@ class PopularViewModel(var networkUtils: NetworkUtils) : ViewModel() {
 
     fun loadListRates() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = networkUtils.retrofit.getLatest()
-            val errMessage = result.errorBody()?.string()
-            errMessage?.let {
-                val errMessage = ErrorResponse().from(it)?.message ?: "Not response"
-                rates.postValue(ApiResult.Error(errMessage))
-                return@launch
-            }
-            rates.postValue(ApiResult.Success(result.body()))
+            rates.postValue(interactorEntity.getLatest())
         }
     }
-}
-
-class PopularViewModelFactory(): ViewModelProvider.NewInstanceFactory() {
-    @Inject lateinit var networkUtils: NetworkUtils
-    override fun <T : ViewModel> create(modelClass: Class<T>): T = PopularViewModel(networkUtils) as T
 }

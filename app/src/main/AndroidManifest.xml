@@ -24,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <meta-data android:name="@string/param_access_key"
+                   android:value="847e0d133fe1c0d320fd3ebe423a6f23" />
 
+    </application>
 </manifest>

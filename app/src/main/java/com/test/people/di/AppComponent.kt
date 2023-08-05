@@ -1,12 +1,16 @@
 package com.test.people.di
 
-import com.test.people.ui.popular.PopularFragment
-import com.test.people.ui.popular.PopularViewModelFactory
+import android.content.Context
 import dagger.Component
 
-@Component (modules = [StorageModule::class, NetworkModule::class])
+@Component (modules = [AppModule::class, StorageModule::class, NetworkModule::class, ViewModelModule::class])
 interface AppComponent {
 
-    fun injectPopularViewmodelFactory(vm: PopularViewModelFactory)
+    fun getNetworkUtils(): NetworkUtils
 
+    fun getInteractorEntity(): InteractorEntity
+
+    fun getViewModelFactory(): ViewModelFactory
+
+    fun injectApp(app: App)
 }
