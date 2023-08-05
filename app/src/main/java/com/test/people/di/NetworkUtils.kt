@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import com.test.people.api.ApiService
 import com.test.people.api.RetrofitClient
+import com.test.people.di.App.Companion.EMPTY_STRING
 import com.test.people.ui.BuildConfig
 import com.test.people.ui.R
 import okhttp3.HttpUrl
@@ -54,10 +55,6 @@ class NetworkUtils @Inject constructor(val context: Context) {
                            .addConverterFactory(GsonConverterFactory.create())
                            .build()
                            .create(ApiService::class.java)
-    }
-
-    companion object {
-        const val EMPTY_STRING = ""
     }
 
 }

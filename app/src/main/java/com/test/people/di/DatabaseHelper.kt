@@ -1,6 +1,9 @@
 package com.test.people.di
 
-class DatabaseHelper {
+import android.content.Context
+import javax.inject.Inject
+
+class DatabaseHelper @Inject constructor(val context: Context) {
 
     init {
         // todo

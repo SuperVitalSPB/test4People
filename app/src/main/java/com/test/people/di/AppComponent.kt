@@ -3,7 +3,7 @@ package com.test.people.di
 import android.content.Context
 import dagger.Component
 
-@Component (modules = [AppModule::class, StorageModule::class, NetworkModule::class, ViewModelModule::class])
+@Component (modules = [AppModule::class, ViewModelModule::class])
 interface AppComponent {
 
     fun getNetworkUtils(): NetworkUtils
@@ -12,5 +12,5 @@ interface AppComponent {
 
     fun getViewModelFactory(): ViewModelFactory
 
-    fun injectApp(app: App)
+    fun getDatabaseHelper(): DatabaseHelper
 }
