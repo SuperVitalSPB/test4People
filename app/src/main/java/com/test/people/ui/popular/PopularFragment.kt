@@ -60,7 +60,7 @@ class PopularFragment : Fragment() {
                 text = "${getString(R.string.base_valute)} ${response.data?.base ?: ""}"
             }
             recyclerView.apply {
-                visibility =View.VISIBLE
+                visibility = View.VISIBLE
                 adapter = RatesAdapter(response.data!!.rates)
             }
         }
