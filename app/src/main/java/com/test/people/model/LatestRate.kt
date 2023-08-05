@@ -23,7 +23,7 @@ data class LatestRate(
                             !valute.first.equals(latestRateEntity.base)
                         }
                         .map { item ->
-                            this.add(Valute(item.first, item.second, Random().nextBoolean()))
+                            this.add(Valute(item.first, item.second, false))
                         }
                 })
         }

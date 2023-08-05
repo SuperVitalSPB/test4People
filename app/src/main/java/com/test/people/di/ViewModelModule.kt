@@ -2,6 +2,7 @@ package com.test.people.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.test.people.ui.favorites.FavoritesViewModel
 import com.test.people.ui.popular.PopularViewModel
 import dagger.MapKey
 import dagger.Module
@@ -15,8 +16,15 @@ class ViewModelModule {
     @IntoMap
     @ViewModelKey(PopularViewModel::class)
     @Provides
-    fun provideViewModel(interactorEntity: InteractorEntity): ViewModel {
+    fun providePopularViewModel(interactorEntity: InteractorEntity): ViewModel {
         return PopularViewModel(interactorEntity)
+    }
+
+    @IntoMap
+    @ViewModelKey(FavoritesViewModel::class)
+    @Provides
+    fun provideFavoritesViewModel(interactorDatabase: InteractorDatabase): ViewModel {
+        return FavoritesViewModel(interactorDatabase)
     }
 
 }

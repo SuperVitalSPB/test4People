@@ -13,4 +13,6 @@ interface AppComponent {
     fun getViewModelFactory(): ViewModelFactory
 
     fun getDatabaseHelper(): DatabaseHelper
+
+    fun getInteractorDatabase(): InteractorDatabase
 }

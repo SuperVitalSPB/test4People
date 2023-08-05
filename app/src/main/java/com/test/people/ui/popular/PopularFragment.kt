@@ -17,6 +17,7 @@ import com.test.people.model.LatestRate
 import com.test.people.model.Valute
 import com.test.people.ui.R
 import com.test.people.ui.databinding.FragmentPopularBinding
+import com.test.people.ui.favorites.FavoritesViewModel
 import kotlinx.coroutines.launch
 
 class PopularFragment : Fragment() {
@@ -24,6 +25,7 @@ class PopularFragment : Fragment() {
     private var _binding: FragmentPopularBinding? = null
 
     lateinit var popularViewModel: PopularViewModel
+    lateinit var favoritesViewModel: FavoritesViewModel
 
     private val binding
         get() = _binding!!
@@ -38,6 +40,10 @@ class PopularFragment : Fragment() {
                 (it.application as App).appComponent.getViewModelFactory()).get(PopularViewModel::class.java)
 
             initViewModelObservers()
+
+            favoritesViewModel = ViewModelProvider(this,
+                (it.application as App).appComponent.getViewModelFactory()).get(FavoritesViewModel::class.java)
+
         }
         return root
     }
@@ -78,7 +84,7 @@ class PopularFragment : Fragment() {
     }
 
     private val actChangedFavorite : (valute: Valute) -> Unit = { valute ->
-        Log.d ("actChangedFavorite", valute.toString())
+        favoritesViewModel.changeFavorite(valute)
     }
 
     override fun onDestroyView() {
