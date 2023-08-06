@@ -5,8 +5,7 @@
     android:id="@+id/container_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginTop="8dp"
     android:weightSum="100"
     android:orientation="horizontal">
 
@@ -28,10 +27,12 @@
         tools:text = "100"/>
     <ImageView
         android:id="@+id/image_favorite"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:src="@android:drawable/star_on"
         android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:scaleType="fitEnd"
         android:layout_weight="40"
         android:layout_marginStart="@dimen/activity_horizontal_margin"/>
 

@@ -1,17 +1,23 @@
 package com.test.people.ui
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.test.people.di.App.Companion.PARAM_SOURCE_FRAGMENT
 import com.test.people.ui.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), INavigateSort {
 
     private lateinit var binding: ActivityMainBinding
+    lateinit var navController: NavController
+    lateinit var navView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        navView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -30,5 +36,13 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
+
+    override fun navigateSort(sourceFragment: SourceFragment) {
+        // navView.menu.findItem(R.id.navigation_sort).setChecked(true)
+        navController.navigate(R.id.navigation_sort, Bundle()
+                                                        .apply { putInt(PARAM_SOURCE_FRAGMENT, sourceFragment.ordinal)})
+    }
+
 }

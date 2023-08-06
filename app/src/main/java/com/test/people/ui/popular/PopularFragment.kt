@@ -2,9 +2,9 @@ package com.test.people.ui.popular
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,7 +15,9 @@ import com.test.people.di.App
 import com.test.people.di.App.Companion.EMPTY_STRING
 import com.test.people.model.LatestRate
 import com.test.people.model.Valute
+import com.test.people.ui.INavigateSort
 import com.test.people.ui.R
+import com.test.people.ui.SourceFragment
 import com.test.people.ui.databinding.FragmentPopularBinding
 import com.test.people.ui.favorites.FavoritesViewModel
 import kotlinx.coroutines.launch
@@ -24,8 +26,8 @@ class PopularFragment : Fragment() {
 
     private var _binding: FragmentPopularBinding? = null
 
-    lateinit var popularViewModel: PopularViewModel
-    lateinit var favoritesViewModel: FavoritesViewModel
+    private lateinit var popularViewModel: PopularViewModel
+    private lateinit var favoritesViewModel: FavoritesViewModel
 
     private val binding
         get() = _binding!!
@@ -45,10 +47,11 @@ class PopularFragment : Fragment() {
                 (it.application as App).appComponent.getViewModelFactory()).get(FavoritesViewModel::class.java)
 
         }
+
         return root
     }
 
-    fun initViewModelObservers() {
+    private fun initViewModelObservers() {
         lifecycleScope.launch {
             popularViewModel.rates.collect { response ->
                 if (response is ApiResult.Success && response.data != null) {
@@ -70,17 +73,20 @@ class PopularFragment : Fragment() {
     fun showData(response: ApiResult<LatestRate>) {
         with(binding) {
             response.data?.let { data ->
-                textTitle.apply {
-                    text = "${getString(R.string.base_valute)} ${data.base ?: EMPTY_STRING}"
-                }
+                textTitle.text = "${getString(R.string.base_valute)} ${data.base ?: EMPTY_STRING}"
                 data.rates?.let { rates ->
                     recyclerView.apply {
                         visibility = View.VISIBLE
                         adapter = RatesAdapter(rates, actChangedFavorite)
                     }
                 }
+                buttonSort.setOnClickListener(buttonSortClicked)
             }
         }
+    }
+
+    private val buttonSortClicked = OnClickListener {
+        (activity as INavigateSort).navigateSort(SourceFragment.sfPopular)
     }
 
     private val actChangedFavorite : (valute: Valute) -> Unit = { valute ->

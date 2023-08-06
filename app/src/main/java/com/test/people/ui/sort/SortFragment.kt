@@ -1,12 +1,15 @@
 package com.test.people.ui.sort
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.test.people.di.App.Companion.PARAM_SOURCE_FRAGMENT
+import com.test.people.ui.SourceFragment
 import com.test.people.ui.databinding.FragmentSortBinding
 
 class SortFragment : Fragment() {
@@ -31,6 +34,11 @@ class SortFragment : Fragment() {
         sortViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        val sourceFragment = SourceFragment.valueOf(arguments?.getInt(PARAM_SOURCE_FRAGMENT))
+
+        Log.d("SortFragment", "SourceFragment: ${sourceFragment.toString()}")
+
         return root
     }
 
