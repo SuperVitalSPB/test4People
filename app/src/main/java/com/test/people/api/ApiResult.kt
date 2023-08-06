@@ -1,10 +1,11 @@
 package com.test.people.api
 
+import com.test.people.db.Favorites
 import com.test.people.model.LatestRate
 
 open class ApiResult<out T>(
     val data: T?,
-    val errorMessage: String?
+    var errorMessage: String?
 ) {
     class Success<out T>(_data: T?) : ApiResult<T>(
         data = _data,
@@ -18,5 +19,6 @@ open class ApiResult<out T>(
 
     companion object {
         fun startValue() = ApiResult(LatestRate(), null)
+        fun startFavorites() = ApiResult(emptyList<Favorites>(), null)
     }
 }

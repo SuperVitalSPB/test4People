@@ -11,7 +11,7 @@ import androidx.room.Update
 interface FavoritesDao {
 
     @Query("SELECT * FROM favorites")
-    fun getAll(): List<Favorites>?
+    fun getAll(): List<Favorites>
 
     @Query("SELECT * FROM favorites WHERE name = :name")
     fun getByName(name: String): Favorites?

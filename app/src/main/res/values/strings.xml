@@ -5,4 +5,5 @@
     <string name="title_sort">Сортировка</string>
     <string name="base_valute">"Базовая валюта: "</string>
     <string name="param_access_key">access_key</string>
+    <string name="no_favorites">Нет избранных валют-курсов</string>
 </resources>

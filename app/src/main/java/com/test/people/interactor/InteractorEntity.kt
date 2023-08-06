@@ -1,16 +1,16 @@
-package com.test.people.di
+package com.test.people.interactor
 
-import android.util.Log
 import com.test.people.api.ApiResult
 import com.test.people.db.Favorites
+import com.test.people.di.DatabaseHelper
+import com.test.people.di.NetworkUtils
 import com.test.people.model.ErrorResponse
 import com.test.people.model.LatestRate
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class InteractorEntity @Inject constructor(private val networkUtils: NetworkUtils,
-                                           private val databaseHelper: DatabaseHelper) {
+                                           private val databaseHelper: DatabaseHelper
+) {
 
     suspend fun getLatest(): ApiResult<LatestRate> {
         val result = networkUtils.retrofit.getLatest()
@@ -19,7 +19,7 @@ class InteractorEntity @Inject constructor(private val networkUtils: NetworkUtil
         }
         result.body().let { body ->
             val result = ApiResult.Success(LatestRate.from(body!!))
-            val favorites = databaseHelper.database.favoritesDao().getAll() ?: emptyList()
+            val favorites = databaseHelper.database.favoritesDao().getAll()
 /*
             Log.d("InteractorEntity", favorites.toString())
             databaseHelper.database.favoritesDao().let {

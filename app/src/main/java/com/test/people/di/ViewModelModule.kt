@@ -1,7 +1,8 @@
 package com.test.people.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.test.people.interactor.InteractorDatabase
+import com.test.people.interactor.InteractorEntity
 import com.test.people.ui.favorites.FavoritesViewModel
 import com.test.people.ui.popular.PopularViewModel
 import dagger.MapKey

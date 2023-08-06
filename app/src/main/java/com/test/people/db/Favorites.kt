@@ -6,7 +6,7 @@ import com.test.people.model.Valute
 
 @Entity
 data class Favorites constructor(@PrimaryKey var name: String,
-                                             val rate: Double) {
+                                 val rate: Double) {
     companion object {
         fun from(valute: Valute): Favorites = Favorites(valute.name, valute.rate)
     }

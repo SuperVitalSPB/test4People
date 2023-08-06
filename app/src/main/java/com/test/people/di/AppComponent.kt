@@ -1,6 +1,7 @@
 package com.test.people.di
 
-import android.content.Context
+import com.test.people.interactor.InteractorDatabase
+import com.test.people.interactor.InteractorEntity
 import dagger.Component
 
 @Component (modules = [AppModule::class, ViewModelModule::class])

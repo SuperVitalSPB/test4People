@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -46,6 +47,7 @@ class PopularFragment : Fragment() {
             favoritesViewModel = ViewModelProvider(this,
                 (it.application as App).appComponent.getViewModelFactory()).get(FavoritesViewModel::class.java)
 
+            popularViewModel.loadListRates()
         }
 
         return root
@@ -54,6 +56,13 @@ class PopularFragment : Fragment() {
     private fun initViewModelObservers() {
         lifecycleScope.launch {
             popularViewModel.rates.collect { response ->
+                with (binding) {
+                    textError.isVisible = response is ApiResult.Error
+                    recyclerView.isVisible = (response is ApiResult.Success
+                                              && response.data != null
+                                              && (response.data.rates?.size ?: 0) > 0)
+                }
+
                 if (response is ApiResult.Success && response.data != null) {
                     showData(response)
                 } else {
@@ -64,6 +73,7 @@ class PopularFragment : Fragment() {
                             Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
                         }
                     }
+                    binding.buttonSort.visibility = View.GONE
                 }
             }
         }
@@ -80,7 +90,10 @@ class PopularFragment : Fragment() {
                         adapter = RatesAdapter(rates, actChangedFavorite)
                     }
                 }
-                buttonSort.setOnClickListener(buttonSortClicked)
+                buttonSort.let {
+                    it.visibility = View.VISIBLE
+                    it.setOnClickListener(buttonSortClicked)
+                }
             }
         }
     }
