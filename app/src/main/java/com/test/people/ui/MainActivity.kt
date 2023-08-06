@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), INavigateSort {
     }
 
     override fun navigateSort(sourceFragment: SourceFragment) {
-        // navView.menu.findItem(R.id.navigation_sort).setChecked(true)
+        navView.selectedItemId = R.id.navigation_sort
         navController.navigate(R.id.navigation_sort, Bundle()
                                                         .apply { putInt(PARAM_SOURCE_FRAGMENT, sourceFragment.ordinal)})
     }
