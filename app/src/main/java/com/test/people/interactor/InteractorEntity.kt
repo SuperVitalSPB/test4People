@@ -9,8 +9,7 @@ import com.test.people.model.LatestRate
 import javax.inject.Inject
 
 class InteractorEntity @Inject constructor(private val networkUtils: NetworkUtils,
-                                           private val interactorDatabase: InteractorDatabase
-) {
+                                           private val interactorDatabase: InteractorDatabase) {
 
     suspend fun getLatest(): ApiResult<LatestRate> {
         val result = networkUtils.retrofit.getLatest()

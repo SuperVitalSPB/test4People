@@ -3,8 +3,10 @@ package com.test.people.di
 import androidx.lifecycle.ViewModel
 import com.test.people.interactor.InteractorDatabase
 import com.test.people.interactor.InteractorEntity
+import com.test.people.interactor.InteractorSort
 import com.test.people.ui.favorites.FavoritesViewModel
 import com.test.people.ui.popular.PopularViewModel
+import com.test.people.ui.sort.SortViewModel
 import dagger.MapKey
 import dagger.Module
 import dagger.Provides
@@ -26,6 +28,13 @@ class ViewModelModule {
     @Provides
     fun provideFavoritesViewModel(interactorDatabase: InteractorDatabase): ViewModel {
         return FavoritesViewModel(interactorDatabase)
+    }
+
+    @IntoMap
+    @ViewModelKey(SortViewModel::class)
+    @Provides
+    fun provideSortViewModel(interactorSort: InteractorSort): ViewModel {
+        return SortViewModel(interactorSort)
     }
 
 }
