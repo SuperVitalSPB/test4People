@@ -37,7 +37,7 @@ class SortFragment : Fragment() {
         _binding = FragmentSortBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        sourceFragment = SourceFragment.valueOf(arguments?.getInt(PARAM_SOURCE_FRAGMENT))
+        sourceFragment = SourceFragment.valueOfId(arguments?.getInt(PARAM_SOURCE_FRAGMENT))
 
         activity?.let {
             sortViewModel = ViewModelProvider(this,
@@ -80,7 +80,7 @@ class SortFragment : Fragment() {
         with(binding) {
             response.data?.let { data ->
                 data.let { valutes ->
-                    recyclerView.apply {
+                     recyclerView.apply {
                         visibility = android.view.View.VISIBLE
                         sortAdapter = RatesSortAdapter(valutes, getTypeSort())
                         adapter = sortAdapter
