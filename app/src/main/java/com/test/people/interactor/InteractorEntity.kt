@@ -9,7 +9,7 @@ import com.test.people.model.LatestRate
 import javax.inject.Inject
 
 class InteractorEntity @Inject constructor(private val networkUtils: NetworkUtils,
-                                           private val databaseHelper: DatabaseHelper
+                                           private val interactorDatabase: InteractorDatabase
 ) {
 
     suspend fun getLatest(): ApiResult<LatestRate> {
@@ -19,21 +19,13 @@ class InteractorEntity @Inject constructor(private val networkUtils: NetworkUtil
         }
         result.body().let { body ->
             val result = ApiResult.Success(LatestRate.from(body!!))
-            val favorites = databaseHelper.database.favoritesDao().getAll()
-/*
-            Log.d("InteractorEntity", favorites.toString())
-            databaseHelper.database.favoritesDao().let {
-                it.insert(Favorites("AED", 12.3))
-                it.insert(Favorites("AMD", 12.3))
-                it.insert(Favorites("AOA", 12.3))
-            }
-            favorites = databaseHelper.database.favoritesDao().getAll() ?: emptyList()
-            Log.d("InteractorEntity", favorites.toString())
-*/
-            result.data?.rates?.map { valute ->
-                valute.isFavorite = favorites.find { item -> item.name.equals(valute.name)} != null
-                if (valute.isFavorite)
-                    databaseHelper.database.favoritesDao().update(Favorites.from(valute))
+            val favorites = interactorDatabase.getFavorites()
+            if (favorites is ApiResult.Success) {
+                result.data?.rates?.map { valute ->
+                    valute.isFavorite = favorites.data!!.find { item -> item.name.equals(valute.name) } != null
+                    if (valute.isFavorite)
+                        interactorDatabase.updateRateFavorite(Favorites.from(valute))
+                }
             }
             return result
         }

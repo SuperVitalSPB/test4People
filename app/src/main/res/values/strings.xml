@@ -6,4 +6,9 @@
     <string name="base_valute">"Базовая валюта: "</string>
     <string name="param_access_key">access_key</string>
     <string name="no_favorites">Нет избранных валют-курсов</string>
+
+    <string-array name="sort_type">
+        <item>По наименованию</item>
+        <item>По значению</item>
+    </string-array>
 </resources>

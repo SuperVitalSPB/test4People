@@ -22,4 +22,8 @@ class InteractorDatabase @Inject constructor(private val databaseHelper: Databas
     suspend fun insertFavorite(favorites: Favorites) =
         databaseHelper.database.favoritesDao().insert(favorites)
 
+    suspend fun updateRateFavorite(favorites: Favorites) =
+        databaseHelper.database.favoritesDao().update(favorites)
+
+
 }
