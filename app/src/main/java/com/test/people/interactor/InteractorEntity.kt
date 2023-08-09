@@ -6,13 +6,14 @@ import com.test.people.di.DatabaseHelper
 import com.test.people.di.NetworkUtils
 import com.test.people.model.ErrorResponse
 import com.test.people.model.LatestRate
+import com.test.people.repository.RepositoryService
 import javax.inject.Inject
 
-class InteractorEntity @Inject constructor(private val networkUtils: NetworkUtils,
+class InteractorEntity @Inject constructor(private val repositoryService: RepositoryService,
                                            private val interactorDatabase: InteractorDatabase) {
 
     suspend fun getLatest(): ApiResult<LatestRate> {
-        val result = networkUtils.retrofit.getLatest()
+        val result = repositoryService.getLatest()
         result.errorBody()?.string()?.let {
             return ApiResult.Error(ErrorResponse().from(it)?.message ?: "Not response")
         }

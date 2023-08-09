@@ -4,26 +4,26 @@ import com.test.people.api.ApiResult
 import com.test.people.db.Favorites
 import com.test.people.di.App.Companion.EMPTY_STRING
 import com.test.people.di.DatabaseHelper
+import com.test.people.repository.RepositoryDatabase
 import javax.inject.Inject
 
-class InteractorDatabase @Inject constructor(private val databaseHelper: DatabaseHelper) {
+class InteractorDatabase @Inject constructor(private val repositoryDatabase: RepositoryDatabase) {
 
     suspend fun getFavorites(): ApiResult<List<Favorites>> {
-        val favorites = databaseHelper.database.favoritesDao().getAll()
+        val favorites = repositoryDatabase.getAll()
         if (favorites.size == 0 )
             return ApiResult.Error(EMPTY_STRING)
         else
-            return ApiResult.Success(databaseHelper.database.favoritesDao().getAll())
+            return ApiResult.Success(favorites)
     }
 
     suspend fun deleteFavorite(favorites: Favorites) =
-        databaseHelper.database.favoritesDao().delete(favorites)
+        repositoryDatabase.deleteFavorite(favorites)
 
     suspend fun insertFavorite(favorites: Favorites) =
-        databaseHelper.database.favoritesDao().insert(favorites)
+        repositoryDatabase.insertFavorite(favorites)
 
     suspend fun updateRateFavorite(favorites: Favorites) =
-        databaseHelper.database.favoritesDao().update(favorites)
-
-
+        repositoryDatabase.updateRateFavorite(favorites)
+    
 }
