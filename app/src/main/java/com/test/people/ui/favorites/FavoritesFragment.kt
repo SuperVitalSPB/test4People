@@ -58,7 +58,7 @@ class FavoritesFragment : Fragment() {
                 with (binding) {
                     textError.isVisible = response is ApiResult.Error
                     recyclerView.isVisible = (response is ApiResult.Success)
-                    titleLayout.isVisible = recyclerView.isVisible && response.data?.size ?:0 > 1
+                    titleLayout.isVisible = recyclerView.isVisible && (response.data?.size ?: 0) > 1
                 }
                 if (response is ApiResult.Success) {
                     showData(response)
