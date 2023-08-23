@@ -32,23 +32,17 @@ class FavoritesFragment : Fragment() {
         get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         activity?.let {
-
             popularViewModel = ViewModelProvider(this,
                 (it.application as App).appComponent.getViewModelFactory()).get(PopularViewModel::class.java)
-
             favoritesViewModel = ViewModelProvider(this,
                 (it.application as App).appComponent.getViewModelFactory()).get(FavoritesViewModel::class.java)
             favoritesViewModel.noDataString = getString(R.string.no_favorites)
             favoritesViewModel.loadFavorites()
             initViewModelObservers()
-
         }
-
         return root
     }
 

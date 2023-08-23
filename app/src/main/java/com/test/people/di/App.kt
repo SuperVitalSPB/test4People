@@ -14,7 +14,6 @@ class App : Application() {
             .builder()
             .appModule(AppModule(this))
             .build()
-
     }
 
     companion object {

@@ -36,7 +36,6 @@ class ViewModelModule {
     fun provideSortViewModel(interactorSort: InteractorSort): ViewModel {
         return SortViewModel(interactorSort)
     }
-
 }
 
 @MapKey

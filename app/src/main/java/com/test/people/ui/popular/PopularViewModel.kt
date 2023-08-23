@@ -22,6 +22,7 @@ class PopularViewModel(val interactorEntity: InteractorEntity) : ViewModel() {
         }
     }
 
+/*
     fun takeoffFavorite(favorites: Favorites) {
         _rates
             .value
@@ -30,4 +31,5 @@ class PopularViewModel(val interactorEntity: InteractorEntity) : ViewModel() {
                                         valute.isFavorite = false
                               }
     }
+*/
 }
