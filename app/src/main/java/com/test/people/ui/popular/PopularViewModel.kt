@@ -3,7 +3,6 @@ package com.test.people.ui.popular
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.people.api.ApiResult
-import com.test.people.db.Favorites
 import com.test.people.interactor.InteractorEntity
 import com.test.people.model.LatestRate
 import kotlinx.coroutines.Dispatchers
@@ -22,14 +21,4 @@ class PopularViewModel(val interactorEntity: InteractorEntity) : ViewModel() {
         }
     }
 
-/*
-    fun takeoffFavorite(favorites: Favorites) {
-        _rates
-            .value
-            .data?.rates?.map { valute ->
-                                    if (valute.name.equals(favorites.name))
-                                        valute.isFavorite = false
-                              }
-    }
-*/
 }
